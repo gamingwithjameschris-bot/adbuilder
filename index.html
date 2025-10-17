@@ -637,26 +637,45 @@ document.getElementById('clear-biz').addEventListener('click', () => {
 });
 
 
-// --- COPY BUTTONS ---
-
+<script>
 function copyPreview() {
-  const text = document.getElementById('preview').textContent;
-  if (text.trim() === '' || text.trim() === 'Select options and click "Build ad".') {
-    return; // nothing to copy, no alerts
+  const preview = document.getElementById("preview");
+  const text = preview.textContent.trim();
+
+  if (text === "" || text === 'Select options and click "Build ad".') return;
+
+  // Use a fallback method for Safari and older browsers
+  if (navigator.clipboard && window.isSecureContext) {
+    navigator.clipboard.writeText(text).then(() => {
+      preview.style.borderColor = "#1f6feb";
+      setTimeout(() => (preview.style.borderColor = "rgba(255,255,255,0.03)"), 600);
+    }).catch(err => console.error("Clipboard error:", err));
+  } else {
+    // Fallback for insecure context (e.g. local file)
+    const textArea = document.createElement("textarea");
+    textArea.value = text;
+    textArea.style.position = "fixed";
+    textArea.style.top = "-1000px";
+    document.body.appendChild(textArea);
+    textArea.focus();
+    textArea.select();
+    try {
+      document.execCommand("copy");
+      preview.style.borderColor = "#1f6feb";
+      setTimeout(() => (preview.style.borderColor = "rgba(255,255,255,0.03)"), 600);
+    } catch (err) {
+      console.error("Fallback copy failed:", err);
+    }
+    document.body.removeChild(textArea);
   }
-  navigator.clipboard.writeText(text).catch(() => {
-    console.error('Failed to copy text.');
-  });
 }
 
-// 🏡 Real Estate Copy
-document.getElementById('copy-real').addEventListener('click', copyPreview);
+// Assign to all copy buttons
+document.getElementById("copy-real").addEventListener("click", copyPreview);
+document.getElementById("copy-auto").addEventListener("click", copyPreview);
+document.getElementById("copy-biz").addEventListener("click", copyPreview);
+</script>
 
-// 🚗 Auto Copy
-document.getElementById('copy-auto').addEventListener('click', copyPreview);
-
-// 🏢 Business Copy
-document.getElementById('copy-biz').addEventListener('click', copyPreview);
 
 // --- SIMPLE KEY BASED ACCESS ---
 const validKeys = [
@@ -691,4 +710,5 @@ if (sessionStorage.getItem('accessOK') === 'true') {
   </script>
 </body>
 </html>
+
 
