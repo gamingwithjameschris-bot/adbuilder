@@ -1,0 +1,692 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>LifeInvader — Ad Builder</title>
+  <style>
+    :root{--bg:#0f1724;--card:#0b1220;--accent:#1f6feb;--muted:#9aa7bf;--glass:rgba(255,255,255,0.03)}
+    body{font-family:Inter,system-ui,Segoe UI,Arial;background:linear-gradient(180deg,#071020 0%,#0b1630 100%);color:#e6eef8;margin:0;padding:24px}
+    .wrap{max-width:980px;margin:0 auto}
+    header{display:flex;align-items:center;gap:16px;margin-bottom:18px}
+    h1{margin:0;font-size:20px}
+    nav{display:flex;gap:8px;margin-left:auto}
+    .tab{padding:8px 12px;background:var(--glass);border-radius:8px;cursor:pointer;border:1px solid rgba(255,255,255,0.03)}
+    .tab.active{background:linear-gradient(90deg,var(--accent),#6aa8ff);color:#07102a;font-weight:700}
+    .card{background:var(--card);padding:16px;border-radius:12px;box-shadow:0 6px 20px rgba(2,6,23,0.6);}
+    .grid{display:grid;grid-template-columns:1fr 360px;gap:16px}
+    label{display:block;font-size:13px;color:var(--muted);margin-bottom:6px}
+    .controls{background:rgba(255,255,255,0.02);padding:12px;border-radius:8px}
+    .row{display:flex;gap:8px;align-items:center;margin-bottom:10px}
+    input[type=text],select,input[type=number],input[list]{background:white;border:1px solid rgba(255,255,255,0.06);padding:8px;border-radius:6px;color:black;width:100%}
+    .features{display:flex;flex-wrap:wrap;gap:8px}
+    .btn{padding:8px 12px;border-radius:8px;border:0;cursor:pointer}
+    .btn.primary{background:var(--accent);color:white}
+    .preview{white-space:pre-wrap;background:linear-gradient(180deg,rgba(255,255,255,0.02),transparent);padding:12px;border-radius:8px;border:1px solid rgba(255,255,255,0.03)}
+    .small{font-size:12px;color:var(--muted)}
+  </style>
+</head>
+<body>
+<!-- 🔐 ACCESS GATE -->
+<div id="access-gate" style="
+  position:fixed;
+  top:0;left:0;width:100%;height:100%;
+  background:#0b1220;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  z-index:9999;
+">
+  <h2 style="color:white;margin-bottom:16px;">Enter Access Key</h2>
+  <input type="password" id="access-key" placeholder="Access key" style="padding:8px;border-radius:6px;border:1px solid #555;width:240px;">
+  <button id="check-key" style="margin-top:10px;padding:8px 16px;border:0;border-radius:6px;background:#1f6feb;color:white;cursor:pointer;">
+    Unlock
+  </button>
+  <p id="key-error" style="color:red;display:none;margin-top:8px;">Invalid key. Try again.</p>
+</div>
+
+  <div class="wrap">
+    <header>
+      <h1>LifeInvader — Ad Builder</h1>
+      <nav>
+        <div class="tab active" data-cat="real">Real Estate</div>
+        <div class="tab" data-cat="auto">Auto</div>
+        <div class="tab" data-cat="business">Businesses</div>
+        <div class="tab" data-cat="work">Work</div>
+        <div class="tab" data-cat="services">Services</div>
+        <div class="tab" data-cat="other">Other</div>
+        <div class="tab" data-cat="discounts">Discounts</div>
+        <div class="tab" data-cat="dating">Dating</div>
+      </nav>
+    </header>
+
+    <main class="card">
+      <div class="grid">
+        <section id="content">
+
+          <!-- 🏡 REAL ESTATE TAB -->
+<div id="real-estate" class="controls">
+  <div class="row">
+    <div style="flex:1">
+      <label for="action">Action</label>
+      <select id="action">
+        <option value="Selling">Selling</option>
+        <option value="Buying">Buying</option>
+      </select>
+    </div>
+    <div style="width:140px">
+      <label for="type">Type</label>
+      <select id="type">
+        <option value="house">House</option>
+        <option value="apartment">Apartment</option>
+        <option value="casino">Casino penthouse</option>
+        <option value="mansion">Mansion</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="row">
+    <div style="flex:1">
+      <label for="number">Number (optional)</label>
+      <input type="text" id="number" placeholder="e.g. 467" />
+    </div>
+    <div style="width:160px">
+      <label for="garages">Garage spaces</label>
+      <select id="garages">
+        <option value="">None</option>
+        <option value="2 g.s.">2 g.s.</option>
+        <option value="5 g.s.">5 g.s.</option>
+        <option value="9 g.s.">9 g.s.</option>
+        <option value="25 g.s.">25 g.s.</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="row">
+    <div style="flex:1">
+      <label for="warehouse">Warehouse (w.h.)</label>
+      <select id="warehouse">
+        <option value="">None</option>
+        <option value="3 w.h.">3 w.h.</option>
+        <option value="5 w.h.">5 w.h.</option>
+      </select>
+    </div>
+    <div style="width:180px">
+      <label for="location">Location</label>
+      <select id="location">
+        <option value="">Choose</option>
+        <option>the city</option>
+        <option>Vinewood Hills</option>
+        <option>Mirror Park</option>
+        <option>Richman</option>
+        <option>Sandy Shores</option>
+        <option>Paleto Bay</option>
+        <option>Lifeinvader</option>
+        <option>the beach market</option>
+      </select>
+    </div>
+  </div>
+
+  <div style="margin-top:10px">
+    <label>Extras (select any)</label>
+    <div class="features">
+      <label><input type="checkbox" id="garden" /> Garden</label>
+      <label><input type="checkbox" id="custom" /> Custom interior</label>
+      <label><input type="checkbox" id="helipad" /> Helipad</label>
+      <label><input type="checkbox" id="pool" /> Swimming pool</label>
+      <label><input type="checkbox" id="tennis" /> Tennis court</label>
+      <label><input type="checkbox" id="driveway" /> Long driveway</label>
+      <label><input type="checkbox" id="views" /> Nice views</label>
+      <label><input type="checkbox" id="insurance" /> Insurance</label>
+    </div>
+  </div>
+
+  <div style="margin-top:12px" class="row">
+    <div style="flex:1">
+      <label for="price">Price / Budget</label>
+      <input type="number" id="price" placeholder="Leave empty → Negotiable" />
+    </div>
+    <div class="row" style="align-items:center">
+      <input type="checkbox" id="real-million" />
+      <label for="real-million" class="small">Million</label>
+    </div>
+    </div>
+
+<div style="display:flex; gap:8px; margin-top:8px;">
+  <button class="btn primary" id="build">Build ad</button>
+  <button class="btn" id="clear-real">Clear</button>
+  <button class="btn" id="copy-real">Copy</button>
+</div>
+</div>
+
+          <!-- 🚗 AUTO TAB -->
+          <div id="auto" class="controls" style="display:none">
+            <div class="row">
+              <div style="flex:1">
+                <label>Action</label>
+                <select id="auto-action">
+                  <option value="Selling">Selling</option>
+                  <option value="Buying">Buying</option>
+                </select>
+              </div>
+              <div style="width:240px">
+                <label>Vehicle</label>
+                <input list="vehicleList" id="auto-vehicle" placeholder="Start typing vehicle name..." />
+                <datalist id="vehicleList"></datalist>
+              </div>
+            </div>
+
+            <div style="margin-top:10px">
+              <label>Features (select any)</label>
+              <div class="features">
+                <div style="width:100%">
+                  <label><input type="checkbox" id="auto-config-check" /> Configuration</label>
+                  <div id="config-options" style="margin-left:20px;margin-top:6px;display:none;">
+                    <label><input type="radio" name="config-type" value="full configuration"> Full configuration</label><br>
+                    <label><input type="radio" name="config-type" value="partial configuration"> Partial configuration</label>
+                  </div>
+                </div>
+                <label><input type="checkbox" id="auto-visual" /> Visual Upgrades</label>
+                <label><input type="checkbox" id="auto-luminous" /> Luminous Wheels</label>
+                <label><input type="checkbox" id="auto-insurance" /> Insurance</label>
+                <label><input type="checkbox" id="auto-turbo" /> Turbo Kit</label>
+                <label><input type="checkbox" id="auto-drift" /> Drift Kit</label>
+              </div>
+            </div>
+
+            <div style="margin-top:12px" class="row">
+              <div style="flex:1">
+                <label>Price / Budget</label>
+                <input type="number" id="auto-price" placeholder="Leave empty → Negotiable" />
+              </div>
+              <div class="row" style="align-items:center">
+                <input type="checkbox" id="auto-million" />
+                <label for="auto-million" class="small">Million</label>
+              </div>
+            </div>
+
+<div style="display:flex; gap:8px; margin-top:8px;">
+  <button class="btn primary" id="auto-build">Build ad</button>
+  <button class="btn" id="clear-auto">Clear</button>
+  <button class="btn" id="copy-auto">Copy</button>
+</div>
+</div>
+
+        </section>
+
+        <aside>
+          <div class="card">
+            <h3>Preview</h3>
+            <div id="preview" class="preview">Select options and click "Build ad".</div>
+          </div>
+        </aside>
+      </div>
+    </main>
+  </div>
+
+          <!-- 🏢 BUSINESS TAB -->
+          <div id="business" class="controls" style="display:none">
+            <div class="row">
+              <div style="flex:1">
+                <label for="biz-action">Action</label>
+                <select id="biz-action">
+                  <option value="Selling">Selling</option>
+                  <option value="Buying">Buying</option>
+                </select>
+              </div>
+              <div style="flex:2">
+              <label for="biz-name">Business Name</label>
+<input list="bizList" id="biz-name" placeholder="Start typing business name...">
+<datalist id="bizList"></datalist>
+            </div>
+
+            <div class="row" style="margin-top:10px;">
+              <div style="flex:1">
+                <label for="biz-number">Business Number</label>
+                <input type="text" id="biz-number" placeholder="e.g. 34">
+              </div>
+              <div style="flex:1">
+                <label for="biz-beds">Beds (Optional)</label>
+                <div id="biz-beds-wrapper">
+                  <input type="number" id="biz-beds" placeholder="e.g. 20">
+                </div>
+              </div>
+            </div>
+
+            <div class="row" style="margin-top:10px;">
+              <div style="flex:1">
+                <label for="biz-location">Location</label>
+                <select id="biz-location">
+                  <option value="">None</option>
+                  <option>in the city</option>
+                </select>
+              </div>
+              <div style="flex:1; display:flex; align-items:center; gap:4px;">
+                <label for="biz-price">Price / Budget</label>
+                <input type="number" id="biz-price" placeholder="Leave empty → Negotiable">
+                <input type="checkbox" id="biz-million" />
+                <label for="biz-million" class="small">Million</label>
+              </div>
+            </div>
+<div style="display:flex; gap:8px; margin-top:10px;">
+  <button class="btn primary" id="biz-build">Build ad</button>
+  <button class="btn" id="clear-biz">Clear</button>
+  <button class="btn" id="copy-biz">Copy</button>
+</div>
+</div>
+
+<!-- 💼 WORK TAB -->
+<div id="work" class="controls" style="display:none; text-align:center; padding:20px;">
+  <p id="work-message" style="color:#ffffff; font-size:18px; font-weight:bold;">
+    For full acesss, you need to pay to the owner. Discord:
+  </p>
+</div>
+<!-- 💼 SERVICES TAB -->
+<div id="work" class="controls" style="display:none; text-align:center; padding:20px;">
+  <p id="work-message" style="color:#ffffff; font-size:18px; font-weight:bold;">
+    For full acesss, you need to pay to the owner. Discord:
+  </p>
+</div>
+<!-- 💼 OTHER TAB -->
+<div id="work" class="controls" style="display:none; text-align:center; padding:20px;">
+  <p id="work-message" style="color:#ffffff; font-size:18px; font-weight:bold;">
+    For full acesss, you need to pay to the owner. Discord:
+  </p>
+</div>
+<!-- 💼 DATING TAB -->
+<div id="work" class="controls" style="display:none; text-align:center; padding:20px;">
+  <p id="work-message" style="color:#ffffff; font-size:18px; font-weight:bold;">
+    For full acesss, you need to pay to the owner. Discord:
+  </p>
+</div>
+  <script>
+    // --- TAB SWITCHING ---
+document.querySelectorAll('.tab').forEach(tab=>{
+  tab.addEventListener('click',()=>{
+    document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+    tab.classList.add('active');
+    const cat = tab.getAttribute('data-cat');
+    document.getElementById('real-estate').style.display = cat==='real' ? 'block' : 'none';
+    document.getElementById('auto').style.display = cat==='auto' ? 'block' : 'none';
+    document.getElementById('business').style.display = cat==='business' ? 'block' : 'none';
+    document.getElementById('work').style.display = cat==='work' ? 'block' : 'none';
+if (cat === 'work') {
+  document.getElementById('preview').textContent = 'For full acesss, you need to pay to the owner. Discord:';
+}
+if (cat === 'services') {
+  document.getElementById('preview').textContent = 'For full acesss, you need to pay to the owner. Discord:';
+}
+if (cat === 'other') {
+  document.getElementById('preview').textContent = 'For full acesss, you need to pay to the owner. Discord:';
+}
+if (cat === 'dating') {
+  document.getElementById('preview').textContent = 'For full acesss, you need to pay to the owner. Discord:';
+}
+
+  });
+});
+
+
+    // --- CONFIGURATION FEATURE SHOW/HIDE ---
+    const configCheck = document.getElementById('auto-config-check');
+    const configOptions = document.getElementById('config-options');
+    configCheck.addEventListener('change', () => {
+      configOptions.style.display = configCheck.checked ? 'block' : 'none';
+      if (!configCheck.checked) {
+        document.querySelectorAll('input[name="config-type"]').forEach(r => r.checked = false);
+      }
+    });
+
+    
+    
+    
+    
+    
+    
+    // --- REAL ESTATE BUILDER ---
+    document.getElementById('build').addEventListener('click', () => {
+      const action = document.getElementById('action').value;
+      const type = document.getElementById('type').value;
+      const number = document.getElementById('number').value.trim();
+      const garages = document.getElementById('garages').value;
+      const warehouse = document.getElementById('warehouse').value;
+      let location = document.getElementById('location').value;
+
+      let locationPrefix = 'in ';
+      // ✅ Adjust location and remove prefix if it's 'the beach market'
+      if (location === 'the beach market') {
+        location = 'near the beach market';
+        locationPrefix = '';
+      }
+
+      // Build extras list
+      const extrasList = [];
+      if (document.getElementById('garden').checked) extrasList.push('a garden');
+      if (garages) extrasList.push(garages);
+      if (warehouse) extrasList.push(warehouse);
+      if (document.getElementById('custom').checked) extrasList.push('custom interior');
+      if (document.getElementById('helipad').checked) extrasList.push('helipad');
+      if (document.getElementById('pool').checked) extrasList.push('swimming pool');
+      if (document.getElementById('tennis').checked) extrasList.push('tennis court');
+      if (document.getElementById('driveway').checked) extrasList.push('long driveway');
+      if (document.getElementById('views').checked) extrasList.push('nice views');
+      if (document.getElementById('insurance').checked) extrasList.push('insurance');
+
+      let extrasText = '';
+      if (extrasList.length === 1) {
+        extrasText = ` with ${extrasList[0]}`;
+      } else if (extrasList.length > 1) {
+        extrasText = ` with ${extrasList.slice(0, -1).join(', ')} and ${extrasList[extrasList.length - 1]}`;
+      }
+
+      const price = document.getElementById('price').value.trim();
+      const millionCheck = document.getElementById('real-million').checked;
+
+      // Build main sentence
+      let mainText = action;
+      if (number) {
+        mainText += ` ${type} №${number}`;
+      } else {
+        const vowels = ['a','e','i','o','u'];
+        const article = vowels.includes(type[0].toLowerCase()) ? 'an' : 'a';
+        mainText += ` ${article} ${type}`;
+      }
+      mainText += `${extrasText}`;
+      if (location) mainText += ` ${locationPrefix}${location}`;
+      mainText += `.`;
+
+      // Price formatting
+      let priceText = '';
+      if (price === '') {
+        priceText = action === 'Selling' ? 'Price: Negotiable.' : 'Budget: Negotiable.';
+      } else {
+        const formatted = millionCheck ? `$${price} Million` : `$${Number(price).toLocaleString()}`;
+        priceText = action === 'Selling' ? `Price: ${formatted}.` : `Budget: ${formatted}.`;
+      }
+
+      document.getElementById('preview').textContent = `${mainText} ${priceText}`;
+    });
+
+
+    // --- VEHICLE LIST ---
+    const vehicleList = [      "Adder","Alpha","Annis ZR-350","Annis 350Z","Annis Silvia (S15)","Annis Skyline GT-R (R34)","Annis GT-R I",
+      "Annis RX-7 (FD)","Annis RX-7 (Veilside Fortune)","Annis WRX 2004","Apocalypse Impaler","Apocalypse Imperator",
+      "Apocalypse Issi","Apocalypse Slamvan","Ardent","Asbo","Asea","Asterope","Autarch","Albany Escalade",
+      "Baller","Baller LE LWB","Baller SG","Banshee","Banshee 900R","Beater Emperor","Beater Mariachi Tornado",
+      "Beater Surfer","Beater Tornado","Benefactor-MG C63 (W205)","Benefactor-MG C63 Coupe (W205)","Benefactor-MG G63 (G770)",
+      "Benefactor-MG S63 (W222)","Benefactor-MG VT Black Series","Benefactor-Benz 600SEL (W140)","Benefactor-Benz E420 (W210)",
+      "Benefactor-Benz Vito (V447)","Benefactor-Maybach Pullman","Bestia GTS","BF Injection","Bison","Blade","Blista",
+      "Blista Kanjo","Bodhi","Brawler","Bravado Charger SRT","Bravado Charger 1969","Bravado Challenger 2016","Bravado Ram 1500",
+      "Bravado Viper 2008","Brioso R/A","Buccaneer","Buffalo","Bullet","Benefactor-MG GT","Benefactor-MG SL65 (R230)",
+      "Burgerfahrzeug Golf GTI Vision","Calico GTF","Caracara 4x4","Carbonizzare","Casco","Cavalcade","Cheburek",
+      "Cheetah","Cheetah Classic","Chino","Clique","Coil Cybertruck","Coil Model S","Coil Model X","Coil Roadster",
+      "Cognoscenti","Cognoscenti 55","Cognoscenti Cabrio","Comet","Comet S2","Comet SR","Contender","Coquette",
+      "Coquette Blackfin","Coquette D10","Couquette Classic","Cyclone","Cypher","Declasse Corvette C7","Declasse Tahoe",
+      "Deveste Eight","Deviant","Dilettante","Dinka RT-3000","Dinka NSX 2017","Dominator","Dominator ASP","Dominator GTT",
+      "Dominator GTX","Dominator PiBwasser","Drift Yosemite","Dubsta","Dubsta 6x6","Dubsta SG","Dukes","Declasse Camaro 2020",
+      "Elegy Retro Custom","Elegy RH8","Ellie","Emperor","Emperor LX-570","Emperor RCF","Entity XF","Enus Cullinan",
+      "Enus Phantom","Enus Spectre","Enus Continental GT","ETR-1","Euros","Exemplar","F620","Faction","Felon","Felon GT",
+      "Feltzer","Flash GT","FMJ","FQ 2","Fugitive","Furore GT","Fusilade","Futo","Futo GTX","Future Shock Issi",
+      "Gallivanter Defender","Gallivanter Defender Halloween Edition","Gallivanter Defender Christmas Edition","Gauntlet",
+      "Gauntlet Classic","Gauntlet Hellfire","Gauntlet Redwood","GB200","Glendale","GP-1","Granger","Growler","Grotti Italia (F458)",
+      "GT 500","Hermes","Hotknife","Huntley S","Imorgon","Impaler","Infernus","Infernus Classic","Ingot","Issi","Itali GTB",
+      "Itali GTB Custom","Itali GTO","Jackal","JB 700","Jester","Jester (Racecar)","Jester Classic","Jester RR","Journey","Jugular","Kamacho","Khamelion","Komoda","Krieger","Karin Land Cruiser 200","Karin Tundra 2021","Karin Supra A80","Karin Mark 2","Lampadati Giulia GTA","Landstalker","Lynx","Mamba","Massacro","Monroe","Moonbeam","Monowheel","Nebula Turbo","Neon","Nero","Nero Custom","Nightshade","Novak","Oracle","Osiris","Obey A8","Obey R8","Obey RS6","Obey RS7","Obey S8 (D4)","Ocelot Victor","Ocelot F-Type R","Obey A6","Obey Q8","Ocelot Vanquish Zagto SB","Ocelot Eletre","Panto","Paragon R","Pariah","Patriot","Patriot Stretch","Pegassi Huayra BC","Pegassi Performante (LP640)","Penetrator","Penumbra","Peyote Gasser","Pfister 811","Pfister Panamera","Pfister Taycan","Pfister 918 Spyder","Pheonix","Picador","Prairie","Premier","Previon","Progen 675 LT","Raiden","Rancher XL","Rapid GT","Raptor","Rat-Loader","Rat-Truck","RE-7B","Reaper","Rebel","Rebla GTS","Regina","Remus","Revolter","Rhapsody","Riata","Rocoto","Ruiner","Rumpo","Ruston","Rusty Rebel","Sabre Turbo","Sandking SWB","Sandking XL","SC-1","Schafter","Schafter LWB","Schafter LWB (Armored)","Schafter V12","Schlagen GT","Schwarzer","Seminole","Sentinel Classic","Sentinel XS","Serrano","Seven-70","Shelby GT500","Slam Van","Slamvan Custom","Specter","Stafford","Stallion","Stinger","Stinger GT","Stirling GT","Streiter","Stretch","Sultan","Sultan Classic","Sultan RS","Sultan RS Classic","Super Diamond","Surano","Surge","Swinger","T-20","Tailgater","Tailgater S","Taipan","Tampa","Tempesta","Tezeract","Thrax","Tigon","Torero","Toros","Tropos Rallye","Tulip","Turismo Classic","Turismo R","Truffade Chiron","Tyrant","Tyrus","Ubermacht 760 (LI)","Ubermacht I8","Ubermacht M3 (G80)","Ubermacht M3 (E46)","Ubermacht M4 (G82)","Ubermacht M4 (GTS)","Ubermacht M5 (E34)","Ubermacht M5 (E60)","Ubermacht M5 (CS)","Ubermacht M5 (CS) Halloween Edition","Ubermacht M8 (F91)","Ubermacht X5 (E70)","Ubermacht X5 (G05)","Ubermacht X6-M (E71)","Ubermacht X7 (G07)","V-STR","Vacca","Vagner","Vamos","Vectre","Velierer","Vigero","Virgo","Virgo Classic","Viseris","Visione","Voltic","Voodoo","Voodoo Custom","Warrener","Warrener HKR","Washington","Windsor","Windsor Drop","X80 Proto","XA-21","XLS","XLS (Armored)","Yosemite","Yosemite Rancher","Z-Type","Zentorno","Zion","Zion Cabrio",,"Zion Classic","Zorrusso","9F","9F Cabrio","Innovation","Lectro","Manchez","Nemesis","Nightblade","PCJ-600","Rat Bike","Ruffian","Sanchez","Sanctus","Shotaro","Sovereign","Street Blazer","Stryder","Thrust","Tri-Cycles Race Bike","Vader","Vindicator","Vortex","Whippet Race Bike","Wolfsbane","Zombie Chopper","Dinghy","Dinghy (2-Seater)","Dinghy (Yacht)","Jetmax","Marquis","SeaShark","Speeder","Squalo","Suntrap","Toro","Tropic","Alpha-Z1","Cuban 800","Dodo","Duster","Howard NX-25","Luxor","Luxor Deluxe","Malard","Mammatus","Microlight","Nimbus","P-45 Nokota","V-65 Molotok","Velum","Buzzard","Frogger","Maverick","Sparrow","SuperVolito Carbon","Swift Deluxe","Volatus"];
+    const dataList = document.getElementById('vehicleList');
+    vehicleList.forEach(v=>{
+      const opt=document.createElement('option');
+      opt.value=v;
+      dataList.appendChild(opt);
+    });
+
+// --- BUSINESS LIST ---
+const businessList = [
+  "Tattoo studio","Chip tuning","Hair salon","Mandarin plantation","Pumpkin plantation",
+  "Cabbage plantation","Pineapple plantation","a family","a private","Ammunition Store",
+  "24/7 Store","State object","ATM","Plantation","Oil Well","Car wash","Freight train",
+  "Cowshed","Parking","Burger shop","Juice shop","Gas station","Grand Elite","Taxi company",
+  "Clothing shop","Bar","Electric station"
+];
+
+const bizDataList = document.getElementById('bizList');
+businessList.forEach(name => {
+  const option = document.createElement('option');
+  option.value = name;
+  bizDataList.appendChild(option);
+});
+
+    // --- AUTO BUILDER ---
+    document.getElementById('auto-build').addEventListener('click',()=>{
+      const action=document.getElementById('auto-action').value;
+      const vehicle=document.getElementById('auto-vehicle').value.trim();
+      let configText = '';
+      if(configCheck.checked){
+        const selectedConfig = document.querySelector('input[name="config-type"]:checked');
+        if(selectedConfig){
+          configText = selectedConfig.value;
+        } else {
+          configText = 'configuration';
+        }
+      }
+      const visual=document.getElementById('auto-visual').checked;
+      const luminous=document.getElementById('auto-luminous').checked;
+      const insurance=document.getElementById('auto-insurance').checked;
+      const turbo=document.getElementById('auto-turbo').checked;
+      const drift=document.getElementById('auto-drift').checked;
+      const price=document.getElementById('auto-price').value.trim();
+      const million=document.getElementById('auto-million').checked;
+
+      const extras=[];
+      if(configText) extras.push(configText);
+      if(visual) extras.push('visual upgrades');
+      if(luminous) extras.push('luminous wheels');
+      if(insurance) extras.push('insurance');
+      if(turbo) extras.push('turbo kit');
+      if(drift) extras.push('drift kit');
+
+      // ✅ Add "and" before last feature
+      let extrasText = '';
+      if (extras.length === 1) {
+        extrasText = ' with ' + extras[0];
+      } else if (extras.length > 1) {
+        extrasText = ' with ' + extras.slice(0, -1).join(', ') + ' and ' + extras[extras.length - 1];
+      }
+
+      
+      let mainText='';
+      if(vehicle === '') {
+        mainText = `${action} a car${extrasText}.`;
+      } else {
+        mainText = `${action} "${vehicle}"${extrasText}.`;
+      }
+
+
+      let priceText='';
+      if(price===''){
+        priceText=action==='Selling'?'Price: Negotiable.':'Budget: Negotiable.';
+      }else{
+        const formatted=million?`$${price} Million`:`$${Number(price).toLocaleString()}`;
+        priceText=action==='Selling'?`Price: ${formatted}.`:`Budget: ${formatted}.`;
+      }
+
+      document.getElementById('preview').textContent = `${mainText} ${priceText}`;
+    });
+// --- Dynamic Beds Field for Plantation ---
+const bizNameSelect = document.getElementById('biz-name');
+const bizBedsWrapper = document.getElementById('biz-beds-wrapper');
+
+bizNameSelect.addEventListener('change', () => {
+  const selected = bizNameSelect.value.toLowerCase();
+  bizBedsWrapper.innerHTML = '';
+
+  if (selected.includes('plantation')) {
+    const select = document.createElement('select');
+    select.id = 'biz-beds';
+    ['','10 beds','15 beds','20 beds'].forEach(val => {
+      const option = document.createElement('option');
+      option.value = val;
+      option.textContent = val === '' ? 'Select beds' : val;
+      select.appendChild(option);
+    });
+    bizBedsWrapper.appendChild(select);
+  } else {
+    const input = document.createElement('input');
+    input.type = 'number';
+    input.id = 'biz-beds';
+    input.placeholder = 'e.g. 20';
+    input.classList.add('input');
+    bizBedsWrapper.appendChild(input);
+  }
+});
+
+// --- BUSINESS BUILDER ---
+document.getElementById('biz-build').addEventListener('click', () => {
+  const action = document.getElementById('biz-action').value;
+  const dropdownName = bizNameSelect.value;
+  const customName = document.getElementById('biz-custom-name');
+  const name = customName || dropdownName;
+  const number = document.getElementById('biz-number').value.trim();
+  const beds = document.getElementById('biz-beds').value.trim();
+  const location = document.getElementById('biz-location').value;
+  const price = document.getElementById('biz-price').value.trim();
+  const million = document.getElementById('biz-million').checked;
+
+  let ad = action;
+
+  if (action === 'Trading') {
+    if (number) {
+      ad += ` ${name} №${number}`;
+    } else {
+      ad += ` ${name} business`;
+    }
+    if (tradeFor) {
+      ad += ` for ${tradeFor} business.`;
+    }
+  } else {
+    if (number) {
+      ad += ` ${name} №${number}`;
+    } else {
+      ad += ` ${name} business`;
+    }
+
+    if (beds) {
+      ad += ` with ${beds}`;
+    }
+
+    if (location) {
+      ad += ` ${location}`;
+    }
+
+    ad += `.`;
+
+    let priceText = '';
+    if (price === '') {
+      priceText = action === 'Buying' ? 'Budget: Negotiable.' : 'Price: Negotiable.';
+    } else {
+      const formatted = million ? `$${price} Million` : `$${Number(price).toLocaleString()}`;
+      priceText = action === 'Buying' ? `Budget: ${formatted}.` : `Price: ${formatted}.`;
+    }
+
+    ad += ` ${priceText}`;
+  }
+
+  document.getElementById('preview').textContent = ad;
+});
+
+// --- CLEAR BUTTONS ---
+
+// 🏡 Real Estate Clear
+document.getElementById('clear-real').addEventListener('click', () => {
+  document.getElementById('action').selectedIndex = 0;
+  document.getElementById('type').selectedIndex = 0;
+  document.getElementById('number').value = '';
+  document.getElementById('garages').selectedIndex = 0;
+  document.getElementById('warehouse').selectedIndex = 0;
+  document.getElementById('location').selectedIndex = 0;
+  document.getElementById('price').value = '';
+  document.getElementById('real-million').checked = false;
+  // clear checkboxes
+  ['garden','custom','helipad','pool','tennis','driveway','views','insurance'].forEach(id=>{
+    document.getElementById(id).checked = false;
+  });
+  document.getElementById('preview').textContent = 'Select options and click "Build ad".';
+});
+
+// 🚗 Auto Clear
+document.getElementById('clear-auto').addEventListener('click', () => {
+  document.getElementById('auto-action').selectedIndex = 0;
+  document.getElementById('auto-vehicle').value = '';
+  configCheck.checked = false;
+  configOptions.style.display = 'none';
+  document.querySelectorAll('input[name="config-type"]').forEach(r => r.checked = false);
+  ['auto-visual','auto-luminous','auto-insurance','auto-turbo','auto-drift'].forEach(id=>{
+    document.getElementById(id).checked = false;
+  });
+  document.getElementById('auto-price').value = '';
+  document.getElementById('auto-million').checked = false;
+  document.getElementById('preview').textContent = 'Select options and click "Build ad".';
+});
+
+// 🏢 Business Clear
+document.getElementById('clear-biz').addEventListener('click', () => {
+  document.getElementById('biz-action').selectedIndex = 0;
+  document.getElementById('biz-name').selectedIndex = 0;
+  document.getElementById('biz-number').value = '';
+  bizNameSelect.dispatchEvent(new Event('change')); // resets beds field
+  document.getElementById('biz-location').selectedIndex = 0;
+  document.getElementById('biz-price').value = '';
+  document.getElementById('biz-million').checked = false;
+  document.getElementById('preview').textContent = 'Select options and click "Build ad".';
+});
+
+
+// --- COPY BUTTONS ---
+
+function copyPreview() {
+  const text = document.getElementById('preview').textContent;
+  if (text.trim() === '' || text.trim() === 'Select options and click "Build ad".') {
+    return; // nothing to copy, no alerts
+  }
+  navigator.clipboard.writeText(text).catch(() => {
+    console.error('Failed to copy text.');
+  });
+}
+
+// 🏡 Real Estate Copy
+document.getElementById('copy-real').addEventListener('click', copyPreview);
+
+// 🚗 Auto Copy
+document.getElementById('copy-auto').addEventListener('click', copyPreview);
+
+// 🏢 Business Copy
+document.getElementById('copy-biz').addEventListener('click', copyPreview);
+
+// --- SIMPLE KEY BASED ACCESS ---
+const validKeys = [
+  { key: "shHy-JUKs-gys2-657H", validUntil: "2025-10-20", usedBy: 1 },
+  { key: "shHy-JUKs-2025-657H", validUntil: "2025-10-17", usedBy: 1 }
+];
+
+const gate = document.getElementById('access-gate');
+const keyInput = document.getElementById('access-key');
+const errorMsg = document.getElementById('key-error');
+const checkBtn = document.getElementById('check-key');
+
+checkBtn.addEventListener('click', () => {
+  const entered = keyInput.value.trim();
+  const keyObj = validKeys.find(k => k.key === entered);
+
+  if (keyObj && new Date() <= new Date(keyObj.validUntil)) {
+    gate.style.display = 'none';
+    sessionStorage.setItem('accessOK', 'true');
+  } else {
+    errorMsg.style.display = 'block';
+    keyInput.value = '';
+  }
+});
+
+// ✅ Auto unlock if session is valid
+if (sessionStorage.getItem('accessOK') === 'true') {
+  gate.style.display = 'none';
+}
+
+  </script>
+</body>
+</html>
