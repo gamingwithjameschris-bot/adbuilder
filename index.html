@@ -635,9 +635,6 @@ document.getElementById('clear-biz').addEventListener('click', () => {
   document.getElementById('biz-million').checked = false;
   document.getElementById('preview').textContent = 'Select options and click "Build ad".';
 });
-
-
-<script>
 function copyPreview() {
   const preview = document.getElementById("preview");
   const text = preview.textContent.trim();
@@ -674,9 +671,7 @@ function copyPreview() {
 document.getElementById("copy-real").addEventListener("click", copyPreview);
 document.getElementById("copy-auto").addEventListener("click", copyPreview);
 document.getElementById("copy-biz").addEventListener("click", copyPreview);
-</script>
-
-
+    
 // --- SIMPLE KEY BASED ACCESS ---
 const validKeys = [
   { key: "ahBJ-HgJu-HU78-SB78", validUntil: "2025-10-18", usedBy: 1 },
@@ -710,5 +705,6 @@ if (sessionStorage.getItem('accessOK') === 'true') {
   </script>
 </body>
 </html>
+
 
 
